@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Windows;
+using CSharpPractice2.Models;
+using CSharpPractice2.Tools;
 
-namespace CSharpPractice2
+namespace CSharpPractice2.ViewModels
 {
-    internal class InputViewModel
+    internal class InputViewModel: INotifyPropertyChanged
     {
         #region Fields
         private Person person;
@@ -14,6 +15,7 @@ namespace CSharpPractice2
         private string _surname;
         private string _email;
         private DateTime _birthday;
+        private RelayCommand<object> _proceedCommand;
         #endregion
 
         #region Properties
@@ -66,8 +68,40 @@ namespace CSharpPractice2
             }
         }
 
+        public RelayCommand<object> ProceedCommand
+        {
+            get
+            {
+                return _proceedCommand?? (_proceedCommand = new RelayCommand<object>(o =>
+                           {
+                               try
+                               {
+                                   ProceedInput();
+                               }
+                               catch(Exception)
+                               {
+                                   MessageBox.Show("Invalid input");
+                               }
+                           }
+                       ))
+                    
+
+                ;
+            }
+        }
+
         #endregion
 
+        private void ProceedInput()
+        {
+            NavigationManager.Instance.Navigate(ViewType.Output);
+        }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

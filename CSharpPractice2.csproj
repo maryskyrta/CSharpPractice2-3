@@ -69,6 +69,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="RelayCommand.cs" />
+    <Compile Include="Tools\BaseNavigationModel.cs" />
+    <Compile Include="Tools\INavigatable.cs" />
+    <Compile Include="Tools\IContentOwner.cs" />
+    <Compile Include="Tools\INavigationModel.cs" />
+    <Compile Include="Tools\InitializationNavigationModel.cs" />
+    <Compile Include="Tools\NavigationManager.cs" />
     <Compile Include="Views\InputView.xaml.cs">
       <DependentUpon>InputView.xaml</DependentUpon>
     </Compile>
@@ -87,7 +94,7 @@
       <DependentUpon>OutputView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\OutputViewModel.cs" />
-    <Compile Include="Person.cs" />
+    <Compile Include="Models\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
