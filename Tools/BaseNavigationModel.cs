@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace CSharpPractice2.Tools
 {
@@ -29,8 +25,9 @@ namespace CSharpPractice2.Tools
 
         public void Navigate(ViewType viewType)
         {
-            if (!ViewsDictionary.ContainsKey(viewType))
-                InitializeView(viewType);
+            if (ViewsDictionary.ContainsKey(viewType))
+                ViewsDictionary.Remove(viewType);
+            InitializeView(viewType);
             ContentOwner.ContentControl.Content = ViewsDictionary[viewType];
         }
 

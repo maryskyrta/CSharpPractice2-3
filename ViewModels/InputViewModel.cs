@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Controls;
 using CSharpPractice2.Models;
 using CSharpPractice2.Tools;
 
@@ -72,27 +73,29 @@ namespace CSharpPractice2.ViewModels
         {
             get
             {
-                return _proceedCommand?? (_proceedCommand = new RelayCommand<object>(o =>
-                           {
-                               try
-                               {
-                                   ProceedInput();
-                               }
-                               catch(Exception)
-                               {
-                                   MessageBox.Show("Invalid input");
-                               }
-                           }
-                       ))
-                    
-
-                ;
+                return _proceedCommand?? (_proceedCommand = new RelayCommand<object>(ProceedInput, CanProceedExecute));
             }
         }
 
         #endregion
 
-        private void ProceedInput()
+        private bool CanProceedExecute(object obj)
+        {
+
+            return !String.IsNullOrWhiteSpace(_name) && !String.IsNullOrWhiteSpace(_surname) && !String.IsNullOrWhiteSpace(_email) &&!(_birthday==default(DateTime));
+        }
+
+        private bool IsValidEmail()
+        {
+            return true;
+        }
+
+        private bool IsValidDate()
+        {
+            return true;
+        }
+
+        private void ProceedInput(object obj)
         {
             NavigationManager.Instance.Navigate(ViewType.Output);
         }
