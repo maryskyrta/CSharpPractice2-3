@@ -1,5 +1,4 @@
-﻿
-namespace CSharpPractice2.Tools
+﻿namespace CSharpPractice2.Tools
 {
     internal class NavigationManager
     {

@@ -5,12 +5,6 @@ namespace CSharpPractice2.Tools
 {
     internal static class PersonManager
     {
-        private static Person CurrentPerson;
-
-        internal static Person Person
-        {
-            get => CurrentPerson;
-            set => CurrentPerson = value;
-        }
+        internal static Person Person { get; set; }
     }
 }

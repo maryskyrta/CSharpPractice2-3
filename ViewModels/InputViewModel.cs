@@ -1,19 +1,24 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Windows;
 using CSharpPractice2.Models;
 using CSharpPractice2.Tools;
 using CSharpPractice2.Tools.Exceptions;
 
 namespace CSharpPractice2.ViewModels
 {
-    internal class InputViewModel
+    internal class InputViewModel:  ILoaderOwner
     {
 
         #region Fields
 
         private RelayCommand<object> _proceedCommand;
+        private Visibility _loaderVisibility = Visibility.Hidden;
+        private bool _isControlEnabled = true;
 
         #endregion
 
@@ -41,6 +46,24 @@ namespace CSharpPractice2.ViewModels
             return !String.IsNullOrWhiteSpace(Name) && !String.IsNullOrWhiteSpace(Surname) && !String.IsNullOrWhiteSpace(Email) && !(Birthday == default(DateTime));
         }
 
+        public Visibility LoaderVisibility
+        {
+            get { return _loaderVisibility; }
+            set
+            {
+                _loaderVisibility = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool IsControlEnabled
+        {
+            get { return _isControlEnabled; }
+            set
+            {
+                _isControlEnabled = value;
+                OnPropertyChanged();
+            }
+        }
 
         #endregion
 
@@ -77,8 +100,10 @@ namespace CSharpPractice2.ViewModels
 
         private async void ProceedInput(object obj)
         {
+            LoaderManager.Instance.ShowLoader();
             var result = await Task.Run(() =>
             {
+                Thread.Sleep(2000);
                 try
                 {
                     ValidateNameAttribute(Name);
@@ -123,11 +148,24 @@ namespace CSharpPractice2.ViewModels
 
                 return true;
             });
+            LoaderManager.Instance.HideLoader();
             if (!result) return;
             PersonManager.Person = new Person(Name, Surname, Email, Birthday);
             NavigationManager.Instance.Navigate(ViewType.Output);
         }
-
         
+       
+
+        internal InputViewModel(){
+            LoaderManager.Instance.Initialize(this);
+        }
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

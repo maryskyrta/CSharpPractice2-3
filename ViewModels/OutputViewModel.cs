@@ -42,7 +42,7 @@ namespace CSharpPractice2.ViewModels
         {
             get
             {
-                return $"Birthday: {_person.Birthday.ToLongDateString()}";
+                return $"Birthday: {_person.Birthday.ToShortDateString()}";
             }
         }
 

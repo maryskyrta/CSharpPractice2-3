@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿
 namespace CSharpPractice2.Tools
 {
     internal enum ViewType
@@ -9,7 +7,7 @@ namespace CSharpPractice2.Tools
         Output,
     }
 
-    interface INavigationModel
+    internal interface INavigationModel
     {
         void Navigate(ViewType viewType);
     }

@@ -4,9 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CSharpPractice2.Views"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="White">
+    <Grid Background="White" IsEnabled="{Binding IsControlEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
         <Grid.RowDefinitions>
             <RowDefinition Height="35"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
@@ -27,5 +28,8 @@
         <TextBlock Grid.Row="6" Margin="50 0"  Text="Enter your birthday date:" FontSize="20" Foreground="MidnightBlue"></TextBlock>
         <DatePicker Grid.Row="7" Margin="50 0" HorizontalAlignment="Left" MinWidth="150" FontSize="16" SelectedDate ="{Binding Birthday,UpdateSourceTrigger=PropertyChanged, Mode = OneWayToSource}"></DatePicker>
         <Button  VerticalContentAlignment ="Center"  VerticalAlignment="Bottom" Grid.Row="8" Margin="0 0 0 10" Background="WhiteSmoke" Foreground="MidnightBlue" BorderThickness="0"  ToolTip="Proceed information" MaxHeight="30" MaxWidth="200" Content="Proceed" FontSize="18" Command="{Binding ProceedCommand}"></Button>
+        <fa:ImageAwesome Icon="Asterisk" Width="50" Height="50" Spin="True" Visibility="{Binding LoaderVisibility, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"  Grid.Row="4" Grid.RowSpan="2">
+            
+        </fa:ImageAwesome>
     </Grid>
 </UserControl>
