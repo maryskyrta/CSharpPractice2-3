@@ -1,4 +1,5 @@
 ﻿using System;
+using CSharpPractice2.Views;
 
 namespace CSharpPractice2.Tools
 {

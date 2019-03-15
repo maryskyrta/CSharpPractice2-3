@@ -2,7 +2,7 @@
 using CSharpPractice2.Tools;
 using CSharpPractice2.ViewModels;
 
-namespace CSharpPractice2
+namespace CSharpPractice2.Views
 {
     /// <summary>
     /// Логика взаимодействия для InputView.xaml

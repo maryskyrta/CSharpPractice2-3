@@ -9,10 +9,10 @@ namespace CSharpPractice2.Models
 
 
         #region Fields
-        private string _name;
-        private string _surname;
-        private string _email;
-        private DateTime _birthday;
+        private readonly string _name;
+        private readonly string _surname;
+        private readonly string _email;
+        private readonly DateTime _birthday;
 
         #endregion
 
@@ -46,11 +46,11 @@ namespace CSharpPractice2.Models
             }
         }
 
-        public bool IsBirthday
+        public bool IsBirthdayToday
         {
             get
             {
-                return DateTime.Today.DayOfYear == _birthday.DayOfYear;
+                return DateTime.Today.Month == _birthday.Month&&DateTime.Today.Day==_birthday.Day;
             }
         }
 
@@ -58,8 +58,8 @@ namespace CSharpPractice2.Models
         {
             get
             {
-                int day = _birthday.Day;
-                int month = _birthday.Month;
+                var day = _birthday.Day;
+                var month = _birthday.Month;
                 if (month == 1)
                     return day < 20 ? WesternSigns[WesternSigns.Length - 1] : WesternSigns[month - 1];
                 if (month == 2)

@@ -1,5 +1,4 @@
-﻿using System;
-using CSharpPractice2.Models;
+﻿using CSharpPractice2.Models;
 using CSharpPractice2.Tools;
 
 namespace CSharpPractice2.ViewModels
@@ -8,7 +7,8 @@ namespace CSharpPractice2.ViewModels
     {
         #region Fields
 
-        private Person _person;
+        private readonly Person _person;
+        private RelayCommand<object> _returnCommand;
 
         #endregion
 
@@ -42,17 +42,15 @@ namespace CSharpPractice2.ViewModels
         {
             get
             {
-                return $"Birthday: {_person.Birthday}";
+                return $"Birthday: {_person.Birthday.ToLongDateString()}";
             }
         }
 
-        public String IsAdult
+        public string IsAdult
         {
             get
             {
-                if (_person.IsAdult)
-                    return "You are an adult";
-                return "You are not an adult";
+                return _person.IsAdult ? "You are an adult" : "You are not an adult";
             }
         }
 
@@ -60,9 +58,7 @@ namespace CSharpPractice2.ViewModels
         {
             get
             {
-                if (_person.IsBirthdayToday)
-                    return "Happy Birthday!";
-                return "Sorry, it's not your birthday today:(";
+                return _person.IsBirthdayToday ? "Happy Birthday!" : "Sorry, it's not your birthday today:(";
             }
         }
 
@@ -86,9 +82,11 @@ namespace CSharpPractice2.ViewModels
 
         #endregion
 
+        internal OutputViewModel()
+        {
+            _person = PersonManager.Person;
+        }
 
-
-        private RelayCommand<object> _returnCommand;
 
         public RelayCommand<object> ReturnCommand
         {
@@ -96,14 +94,7 @@ namespace CSharpPractice2.ViewModels
             {
                 return _returnCommand ?? (_returnCommand = new RelayCommand<object>(o =>
                            {
-                               try
-                               {
-                                   NavigationManager.Instance.Navigate(ViewType.Input);
-                               }
-                               catch (Exception)
-                               {
-                                   //MessageBox.Show("Invalid input");
-                               }
+                               NavigationManager.Instance.Navigate(ViewType.Input);
                            }
                        ));
             }
